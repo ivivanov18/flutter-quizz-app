@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'question.dart';
 
 void main() => runApp(QuizzApp());
 
@@ -17,20 +18,19 @@ class QuizzPage extends StatefulWidget {
 class _QuizzPageState extends State<QuizzPage> {
 
   List<Icon> scoreKeeper = [];
-  List<String> questions = [
-    'The Earth is the fourth planet from the sun.',
-    'The planet Venus has no moons.',
-    'Jupiter is composed mostly of iron.',
-    'The sun is a star of average size.',
-    'A lunar eclipse occurs when the sun passes.'
+  List<Question> questionBank = [
+    Question(question: 'The Earth is the fourth planet from the sun.', answer: false),
+    Question(question: 'The planet Venus has no moons.', answer: true),
+    Question(question: 'Jupiter is composed mostly of iron.', answer: false),
+    Question(question: 'The sun is a star of average size.', answer: true),
+    Question(question: 'A lunar eclipse occurs when the sun passes.', answer: false)
   ];
-  List<bool> answers = [false, true, false , true, false];
 
   int currentQuestionNumber = 0;
 
   void changeToNextQuestion(){
     setState(() {
-      if(currentQuestionNumber < questions.length - 1) {
+      if(currentQuestionNumber < questionBank.length - 1) {
         currentQuestionNumber++;
       }
       else{
@@ -40,8 +40,12 @@ class _QuizzPageState extends State<QuizzPage> {
     });
   }
 
+  String getTextToDisplay(){
+    if()
+  }
+
   bool checkIsRightAnswerToCurrentQuestion(bool providedAnswer) =>
-      answers[currentQuestionNumber] == providedAnswer ? true : false;
+      questionBank[currentQuestionNumber].questionAnswer == providedAnswer ? true : false;
 
   void onPressAnswer(bool givenAnswer){
     bool isRightAnswerProvided = checkIsRightAnswerToCurrentQuestion(givenAnswer);
@@ -68,7 +72,7 @@ class _QuizzPageState extends State<QuizzPage> {
                 padding: const EdgeInsets.all(10.0),
                 child: Center(
                   child: Text(
-                    questions[currentQuestionNumber],
+                    questionBank[currentQuestionNumber].questionText,
                     textAlign: TextAlign.center,
                     style: TextStyle(color: Colors.white, fontSize: 30.0),
                   ),
