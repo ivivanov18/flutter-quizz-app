@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
 import 'quizz_brain.dart';
 
 QuizzBrain quizzBrain = QuizzBrain();
@@ -18,18 +19,41 @@ class QuizzPage extends StatefulWidget {
 }
 
 class _QuizzPageState extends State<QuizzPage> {
-
   List<Icon> scoreKeeper = [];
 
-  void onPressAnswer(bool givenAnswer){
-    bool isRightAnswerProvided = quizzBrain.checkIsRightAnswerToCurrentQuestion(givenAnswer);
-    if(isRightAnswerProvided){
-      scoreKeeper.add(Icon(Icons.check, color: Colors.green));
-    }else{
-      scoreKeeper.add(Icon(Icons.close, color: Colors.red));
-    }
+  void onPressAnswer(bool givenAnswer, BuildContext context) {
+    bool isRightAnswerProvided =
+        quizzBrain.checkIsRightAnswerToCurrentQuestion(givenAnswer);
     setState(() {
-      quizzBrain.nextQuestion();
+      if (isRightAnswerProvided) {
+        scoreKeeper.add(Icon(Icons.check, color: Colors.green));
+      } else {
+        scoreKeeper.add(Icon(Icons.close, color: Colors.red));
+      }
+      if (!quizzBrain.nextQuestion()) {
+        Alert(
+          context: context,
+          title: 'End of quizz',
+          desc: 'You\'ve reached the end of the quizz. Click the button to start again',
+          style: AlertStyle(
+            isCloseButton: false,
+          ),
+          buttons: [
+            DialogButton(
+              child: Text(
+                'Start'
+              ),
+              onPressed: (){
+                setState(() {
+                  quizzBrain.initQuizz();
+                  scoreKeeper = [];
+                  Navigator.pop(context);
+                });
+              },
+            )
+          ]
+        ).show();
+      }
     });
   }
 
@@ -66,7 +90,7 @@ class _QuizzPageState extends State<QuizzPage> {
                 ),
                 color: Colors.green,
                 onPressed: () {
-                  onPressAnswer(true);
+                  onPressAnswer(true, context);
                 },
               ),
             ),
@@ -84,7 +108,7 @@ class _QuizzPageState extends State<QuizzPage> {
                 ),
                 color: Colors.red,
                 onPressed: () {
-                  onPressAnswer(false);
+                  onPressAnswer(false, context);
                 },
               ),
             ),

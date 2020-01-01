@@ -29,24 +29,30 @@ class QuizzBrain{
     Question(
         'In West Virginia, USA, if you accidentally hit an animal with your car, you are free to take it home to eat.',
         true),
-    Question('The Earth is the fourth planet from the sun.', false),
-    Question('The planet Venus has no moons.', true),
-    Question('Jupiter is composed mostly of iron.', false),
-    Question('The sun is a star of average size.', true),
-    Question('A lunar eclipse occurs when the sun passes.',  false)
+//    Question('The Earth is the fourth planet from the sun.', false),
+//    Question('The planet Venus has no moons.', true),
+//    Question('Jupiter is composed mostly of iron.', false),
+//    Question('The sun is a star of average size.', true),
+//    Question('A lunar eclipse occurs when the sun passes.',  false)
   ];
 
   String getQuestionTextOfCurrentQuestionIndex() => _questionBank[_currentQuestionNumber].questionText;
 
   bool getQuestionAnswerOfCurrentQuestionIndex() => _questionBank[_currentQuestionNumber].questionAnswer;
 
-  void nextQuestion(){
+  bool nextQuestion(){
       if(_currentQuestionNumber < _questionBank.length - 1) {
         _currentQuestionNumber++;
+        return true;
       }
+      return false;
   }
 
   bool checkIsRightAnswerToCurrentQuestion(bool providedAnswer) =>
       _questionBank[_currentQuestionNumber].questionAnswer == providedAnswer ? true : false;
 
+
+  void initQuizz(){
+    _currentQuestionNumber = 0;
+  }
 }
