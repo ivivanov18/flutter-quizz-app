@@ -20,31 +20,15 @@ class QuizzPage extends StatefulWidget {
 class _QuizzPageState extends State<QuizzPage> {
 
   List<Icon> scoreKeeper = [];
-  int currentQuestionNumber = 0;
-
-  void changeToNextQuestion(){
-    setState(() {
-      if(currentQuestionNumber < quizzBrain.getQuestionBankLength() - 1) {
-        currentQuestionNumber++;
-      }
-      else{
-        currentQuestionNumber = 0;
-        scoreKeeper = [];
-      }
-    });
-  }
-
-  bool checkIsRightAnswerToCurrentQuestion(bool providedAnswer) =>
-      quizzBrain.getQuestionAnswerAt(index: currentQuestionNumber) == providedAnswer ? true : false;
 
   void onPressAnswer(bool givenAnswer){
-    bool isRightAnswerProvided = checkIsRightAnswerToCurrentQuestion(givenAnswer);
+    bool isRightAnswerProvided = quizzBrain.checkIsRightAnswerToCurrentQuestion(givenAnswer);
     if(isRightAnswerProvided){
       scoreKeeper.add(Icon(Icons.check, color: Colors.green));
     }else{
       scoreKeeper.add(Icon(Icons.close, color: Colors.red));
     }
-    changeToNextQuestion();
+    quizzBrain.nextQuestion();
   }
 
   @override
