@@ -24,7 +24,7 @@ class _QuizzPageState extends State<QuizzPage> {
 
   void changeToNextQuestion(){
     setState(() {
-      if(currentQuestionNumber < quizzBrain.questionBank.length - 1) {
+      if(currentQuestionNumber < quizzBrain.getQuestionBankLength() - 1) {
         currentQuestionNumber++;
       }
       else{
@@ -35,7 +35,7 @@ class _QuizzPageState extends State<QuizzPage> {
   }
 
   bool checkIsRightAnswerToCurrentQuestion(bool providedAnswer) =>
-      quizzBrain.questionBank[currentQuestionNumber].questionAnswer == providedAnswer ? true : false;
+      quizzBrain.getQuestionAnswerAt(index: currentQuestionNumber) == providedAnswer ? true : false;
 
   void onPressAnswer(bool givenAnswer){
     bool isRightAnswerProvided = checkIsRightAnswerToCurrentQuestion(givenAnswer);
@@ -62,7 +62,7 @@ class _QuizzPageState extends State<QuizzPage> {
                 padding: const EdgeInsets.all(10.0),
                 child: Center(
                   child: Text(
-                    quizzBrain.questionBank[currentQuestionNumber].questionText,
+                    quizzBrain.getQuestionTextAt(index: currentQuestionNumber),
                     textAlign: TextAlign.center,
                     style: TextStyle(color: Colors.white, fontSize: 30.0),
                   ),
