@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'question.dart';
+import 'quizz_brain.dart';
+
+QuizzBrain quizzBrain = QuizzBrain();
 
 void main() => runApp(QuizzApp());
 
@@ -18,19 +20,11 @@ class QuizzPage extends StatefulWidget {
 class _QuizzPageState extends State<QuizzPage> {
 
   List<Icon> scoreKeeper = [];
-  List<Question> questionBank = [
-    Question(question: 'The Earth is the fourth planet from the sun.', answer: false),
-    Question(question: 'The planet Venus has no moons.', answer: true),
-    Question(question: 'Jupiter is composed mostly of iron.', answer: false),
-    Question(question: 'The sun is a star of average size.', answer: true),
-    Question(question: 'A lunar eclipse occurs when the sun passes.', answer: false)
-  ];
-
   int currentQuestionNumber = 0;
 
   void changeToNextQuestion(){
     setState(() {
-      if(currentQuestionNumber < questionBank.length - 1) {
+      if(currentQuestionNumber < quizzBrain.questionBank.length - 1) {
         currentQuestionNumber++;
       }
       else{
@@ -40,12 +34,8 @@ class _QuizzPageState extends State<QuizzPage> {
     });
   }
 
-  String getTextToDisplay(){
-    if()
-  }
-
   bool checkIsRightAnswerToCurrentQuestion(bool providedAnswer) =>
-      questionBank[currentQuestionNumber].questionAnswer == providedAnswer ? true : false;
+      quizzBrain.questionBank[currentQuestionNumber].questionAnswer == providedAnswer ? true : false;
 
   void onPressAnswer(bool givenAnswer){
     bool isRightAnswerProvided = checkIsRightAnswerToCurrentQuestion(givenAnswer);
@@ -72,7 +62,7 @@ class _QuizzPageState extends State<QuizzPage> {
                 padding: const EdgeInsets.all(10.0),
                 child: Center(
                   child: Text(
-                    questionBank[currentQuestionNumber].questionText,
+                    quizzBrain.questionBank[currentQuestionNumber].questionText,
                     textAlign: TextAlign.center,
                     style: TextStyle(color: Colors.white, fontSize: 30.0),
                   ),
