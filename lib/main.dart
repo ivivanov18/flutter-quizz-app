@@ -28,7 +28,9 @@ class _QuizzPageState extends State<QuizzPage> {
     }else{
       scoreKeeper.add(Icon(Icons.close, color: Colors.red));
     }
-    quizzBrain.nextQuestion();
+    setState(() {
+      quizzBrain.nextQuestion();
+    });
   }
 
   @override
@@ -46,7 +48,7 @@ class _QuizzPageState extends State<QuizzPage> {
                 padding: const EdgeInsets.all(10.0),
                 child: Center(
                   child: Text(
-                    quizzBrain.getQuestionTextAt(index: currentQuestionNumber),
+                    quizzBrain.getQuestionTextOfCurrentQuestionIndex(),
                     textAlign: TextAlign.center,
                     style: TextStyle(color: Colors.white, fontSize: 30.0),
                   ),

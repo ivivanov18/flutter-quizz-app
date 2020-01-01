@@ -36,9 +36,9 @@ class QuizzBrain{
     Question('A lunar eclipse occurs when the sun passes.',  false)
   ];
 
-  String getQuestionTextAt({index: int}) => _questionBank[index].questionText;
+  String getQuestionTextOfCurrentQuestionIndex() => _questionBank[_currentQuestionNumber].questionText;
 
-  bool getQuestionAnswerAt({index: int}) => _questionBank[index].questionAnswer;
+  bool getQuestionAnswerOfCurrentQuestionIndex() => _questionBank[_currentQuestionNumber].questionAnswer;
 
   void nextQuestion(){
       if(_currentQuestionNumber < _questionBank.length - 1) {
